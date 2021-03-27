@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+typedef AuthenticationEmailFunction = void Function(String email,
+    String password, String userName, bool isLogin, BuildContext ctx);
+
 class AuthForm extends StatefulWidget {
+  final AuthenticationEmailFunction submitAuth;
+  final _isloading;
+
+  const AuthForm(this.submitAuth, this._isloading);
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -12,16 +19,14 @@ class _AuthFormState extends State<AuthForm> {
   String _password = "";
   String _userName = "";
 
-  void _submit() {
+  void _submit(BuildContext ctx) {
     final bool isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
       _formKey.currentState.save();
-      print("Email: " + _email);
-      print("User name: " + _userName);
-      print("Password: " + _password);
-      print("Is login: $_isLogin");
+      widget.submitAuth(
+          _email.trim(), _password.trim(), _userName.trim(), _isLogin, ctx);
     }
   }
 
@@ -78,12 +83,16 @@ class _AuthFormState extends State<AuthForm> {
                   decoration: InputDecoration(labelText: "Password"),
                 ),
                 SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: () {
-                    _submit();
-                  },
-                  child: Text(_isLogin ? "Login" : "Signup"),
-                ),
+                if (widget._isloading) CircularProgressIndicator(),
+                if (!widget._isloading)
+                  Builder(
+                    builder: (ctx) => ElevatedButton(
+                      onPressed: () {
+                        _submit(ctx);
+                      },
+                      child: Text(_isLogin ? "Login" : "Signup"),
+                    ),
+                  ),
                 TextButton(
                   onPressed: () => setState(() {
                     _isLogin = !_isLogin;
