@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'message_bubble.dart';
 
 class Messages extends StatelessWidget {
   @override
@@ -16,9 +19,11 @@ class Messages extends StatelessWidget {
         final List<QueryDocumentSnapshot> docs = snapshot.data.docs;
         return ListView.builder(
           reverse: true,
-          itemBuilder: (ctx, index) => Container(
-            padding: EdgeInsets.all(8),
-            child: Text(docs[index]["text"]),
+          itemBuilder: (ctx, index) => MessageBubble(
+            docs[index]["text"],
+            docs[index]["userName"],
+            docs[index]["userId"] == FirebaseAuth.instance.currentUser.uid,
+            key: ValueKey(docs[index].id),
           ),
           itemCount: docs.length,
         );
