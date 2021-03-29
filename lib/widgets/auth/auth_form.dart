@@ -33,7 +33,7 @@ class _AuthFormState extends State<AuthForm> {
     final bool isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
-    if (_imageFile == null) {
+    if (_imageFile == null && !_isLogin) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
