@@ -22,6 +22,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
     if (pickedImageFile != null) {
       setState(() {
         _pickedImage = File(pickedImageFile.path);
+        widget.imagePickfn(_pickedImage);
       });
     } else {
       print("No image picked");
