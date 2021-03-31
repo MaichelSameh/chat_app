@@ -12,15 +12,16 @@ class ChatScreen extends StatelessWidget {
         title: Text("Flutter Chat"),
         actions: [
           DropdownButton(
+            underline: null,
             icon: Icon(Icons.more_vert,
                 color: Theme.of(context).primaryIconTheme.color),
             items: [
               DropdownMenuItem(
                 child: Row(
                   children: [
-                    Icon(Icons.exit_to_app),
+                    Icon(Icons.exit_to_app, color: Colors.white),
                     SizedBox(width: 10),
-                    Text("Logout"),
+                    Text("Logout", style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 value: "Logout",
@@ -29,7 +30,6 @@ class ChatScreen extends StatelessWidget {
             onChanged: (itemIdentifier) async {
               if (itemIdentifier == "Logout") {
                 await FirebaseAuth.instance.signOut();
-                print("Logout");
               }
             },
           ),

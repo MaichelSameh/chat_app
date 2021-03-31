@@ -26,6 +26,9 @@ class _NewMessageState extends State<NewMessage> {
       "userId": user.uid,
     });
     _controller.clear();
+    setState(() {
+      _enteredMessage = "";
+    });
   }
 
   @override
@@ -37,19 +40,33 @@ class _NewMessageState extends State<NewMessage> {
           children: [
             Expanded(
               child: TextField(
+                autocorrect: true,
+                enableSuggestions: true,
+                textCapitalization: TextCapitalization.sentences,
                 controller: _controller,
-                decoration: InputDecoration(labelText: "Send message....."),
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  hintText: "Send message.....",
+                  hintStyle: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 onChanged: (val) {
                   setState(() {
                     _enteredMessage = val;
                   });
                 },
+                keyboardType: TextInputType.multiline,
               ),
             ),
             IconButton(
               icon: Icon(Icons.send),
               onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
               color: Theme.of(context).primaryColor,
+              disabledColor: Colors.white,
             ),
           ],
         ));

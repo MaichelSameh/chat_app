@@ -1,8 +1,8 @@
-import 'package:chat_app/screens/chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/chat_screen.dart';
 import 'screens/auth_screen.dart';
 
 void main() async {
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "flutter Demo",
       theme: ThemeData(
+          canvasColor: Colors.black,
           primarySwatch: Colors.pink,
           backgroundColor: Colors.pink,
           accentColor: Colors.deepPurple,
@@ -46,10 +47,12 @@ class ResponsiveRender extends StatelessWidget {
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).size.width <= 500)
       return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapShot) {
+          // if (snapShot.connectionState == ConnectionState.waiting)
+          //   return SplashScreen();
           return snapShot.hasData ? ChatScreen() : AuthScreen();
         },
-        stream: FirebaseAuth.instance.authStateChanges(),
       );
     else {
       return Scaffold(
