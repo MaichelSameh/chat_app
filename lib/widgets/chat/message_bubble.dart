@@ -31,7 +31,7 @@ class MessageBubble extends StatelessWidget {
           // overflow: Overflow.visible,
           children: [
             buildBubbleMessage(context),
-            buildUserImage(),
+            // buildUserImage(),
           ],
         ),
       ],
@@ -67,16 +67,6 @@ class MessageBubble extends StatelessWidget {
                       : Theme.of(context).accentTextTheme.headline6.color,
                 ),
               ),
-              // Text(
-              //   message,
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     color: !isMe
-              //         ? Colors.black
-              //         : Theme.of(context).accentTextTheme.headline6.color,
-              //   ),
-              //   textAlign: !isMe ? TextAlign.end : TextAlign.start,
-              // ),
               Linkable(
                 message: message,
                 textStyle: TextStyle(

@@ -33,19 +33,19 @@ class _AuthFormState extends State<AuthForm> {
     final bool isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
-    if (_imageFile == null && !_isLogin) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "Please pick an image",
-            style: TextStyle(
-              color: Theme.of(context).errorColor,
-            ),
-          ),
-        ),
-      );
-      return;
-    }
+    // if (_imageFile == null && !_isLogin) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text(
+    //         "Please pick an image",
+    //         style: TextStyle(
+    //           color: Theme.of(context).errorColor,
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    //   return;
+    // }
 
     if (isValid) {
       _formKey.currentState.save();

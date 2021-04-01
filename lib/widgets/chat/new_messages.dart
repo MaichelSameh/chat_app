@@ -39,27 +39,32 @@ class _NewMessageState extends State<NewMessage> {
         child: Row(
           children: [
             Expanded(
-              child: TextField(
-                autocorrect: true,
-                enableSuggestions: true,
-                textCapitalization: TextCapitalization.sentences,
-                controller: _controller,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
+              child: LimitedBox(
+                maxHeight: MediaQuery.of(context).size.height / 4,
+                child: TextField(
+                  minLines: null,
+                  maxLines: null,
+                  autocorrect: true,
+                  enableSuggestions: true,
+                  textCapitalization: TextCapitalization.sentences,
+                  controller: _controller,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
+                    hintText: "Send message.....",
+                    hintStyle: TextStyle(color: Theme.of(context).primaryColor),
                   ),
-                  hintText: "Send message.....",
-                  hintStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  onChanged: (val) {
+                    setState(() {
+                      _enteredMessage = val;
+                    });
+                  },
+                  keyboardType: TextInputType.multiline,
                 ),
-                onChanged: (val) {
-                  setState(() {
-                    _enteredMessage = val;
-                  });
-                },
-                keyboardType: TextInputType.multiline,
               ),
             ),
             IconButton(
